@@ -38,18 +38,22 @@ describe("Todolist Test Suite", () => {
   });
   // eslint-disable-next-line no-undef
   test("Marking a todo as completed", () => {
+    // eslint-disable-next-line no-undef
     expect(all[0].completed).toBe(true);
   });
   // eslint-disable-next-line no-undef
   test("Retrieval of overdue items", () => {
+    // eslint-disable-next-line no-undef
     expect(all[2].dueDate).toBe(yesterday);
   });
   // eslint-disable-next-line no-undef
   test("Retrieval of due today items", () => {
+    // eslint-disable-next-line no-undef
     expect(all[0].dueDate).toBe(today);
   });
   // eslint-disable-next-line no-undef
   test("Retrieval of due later items", () => {
+    // eslint-disable-next-line no-undef
     expect(all[1].dueDate).toBe(tomorrow);
   });
 });
