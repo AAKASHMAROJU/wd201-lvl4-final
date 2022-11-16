@@ -1,27 +1,37 @@
-// eslint-disable-next-line no-undef
-const todoList = require("../todo");
-const formattedDate = (d) => {
-  return d.toISOString().split("T")[0];
-};
-var dateToday = new Date();
-const today = formattedDate(dateToday);
-const yesterday = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() - 1))
-);
-const tomorrow = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() + 1))
-);
-const { all, add } = todoList();
+// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
-// eslint-disable-next-line no-undef
+const todoList = require("../todo");
+
+const oneDay = 60 * 60 * 24 * 1000;
+let today = new Date();
+today = new Date(today.getTime() * oneDay);
+today.toLocaleDateString("en-CA");
+
+const yesterday = new Date(today.getTime() - 1 * oneDay);
+yesterday.toLocaleDateString("en-CA");
+
+const tomorrow = new Date(today.getTime() + 1 * oneDay);
+tomorrow.toLocaleDateString("en-CA");
+
+const {
+  all,
+  add,
+  markAsComplete,
+  overdue,
+  dueToday,
+  dueLater,
+  toDisplayableList,
+} = todoList();
+
 describe("Todolist Test Suite", () => {
-  // eslint-disable-next-line no-undef
   test("Creating a new todo", () => {
     const itemsCount = all.length;
     add({
       title: "Test to do",
       completed: true,
-      dueDate: new Date().toLocaleDateString("en-CA"),
+      dueDate: today,
     });
     add({
       title: "Test to do 2",
@@ -33,22 +43,19 @@ describe("Todolist Test Suite", () => {
       completed: true,
       dueDate: yesterday,
     });
-    // eslint-disable-next-line no-undef
+
     expect(all.length).toBe(itemsCount + 3);
   });
-  // eslint-disable-next-line no-undef
+
   test("Marking a todo as completed", () => {
-    // eslint-disable-next-line no-undef
     expect(all[0].completed).toBe(true);
   });
-  // eslint-disable-next-line no-undef
+
   test("Retrieval of overdue items", () => {
-    // eslint-disable-next-line no-undef
     expect(all[2].dueDate).toBe(yesterday);
   });
-  // eslint-disable-next-line no-undef
+
   test("Retrieval of due today items", () => {
-    // eslint-disable-next-line no-undef
     expect(all[0].dueDate).toBe(today);
   });
   // eslint-disable-next-line no-undef

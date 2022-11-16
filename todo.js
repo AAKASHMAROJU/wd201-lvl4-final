@@ -8,82 +8,26 @@ const todoList = () => {
   };
 
   const overdue = () => {
-    let dueyes = [];
-    for (let x in todos.all) {
-      if (todos.all[x].dueDate <= yesterday) {
-        dueyes.push({
-          d: todos.all[x].dueDate,
-          t: todos.all[x].title,
-          c: todos.all[x].completed,
-        });
-      }
-    }
-    return dueyes;
+    return all.filter((todo) => todo.dueDate < today);
   };
 
   const dueToday = () => {
-    let duetoday = [];
-    for (let x in todos.all) {
-      if (todos.all[x].dueDate == today) {
-        duetoday.push({
-          d: today,
-          t: todos.all[x].title,
-          c: todos.all[x].completed,
-        });
-      }
-    }
-    return duetoday;
+    return all.filter((todo) => todo.dueDate == today);
   };
 
   const dueLater = () => {
-    let duetom = [];
-    for (let x in todos.all) {
-      if (todos.all[x].dueDate >= tomorrow) {
-        duetom.push({
-          d: todos.all[x].dueDate,
-          t: todos.all[x].title,
-          c: todos.all[x].completed,
-        });
-      }
-    }
-    return duetom;
+    return all.filter((todo) => todo.dueDate > today);
   };
 
   const toDisplayableList = (list) => {
-    let s = "";
-    let n = list.length;
-    for (let i in list) {
-      if (list[i].d == today) {
-        if (list[i].c == true) {
-          if (i != n - 1) {
-            s += "[x] " + list[i].t + "\n";
-          } else {
-            s += "[x] " + list[i].t;
-          }
-        } else {
-          if (i != n - 1) {
-            s += "[ ] " + list[i].t + "\n";
-          } else {
-            s += "[ ] " + list[i].t;
-          }
-        }
-      } else {
-        if (list[i].s == true) {
-          if (i != n - 1) {
-            s += "[x] " + list[i].t + " " + list[i].d + "\n";
-          } else {
-            s += "[x] " + list[i].t + " " + list[i].d;
-          }
-        } else {
-          if (i != n - 1) {
-            s += "[ ] " + list[i].t + " " + list[i].d + "\n";
-          } else {
-            s += "[ ] " + list[i].t + " " + list[i].d;
-          }
-        }
-      }
-    }
-    return s;
+    return list
+      .map(
+        (todo) =>
+          `${todo.completed ? "[x]" : "[ ]"} ${todo.title} ${
+            todo.dueDate == today ? "" : todo.dueDate
+          }`
+      )
+      .join("\n");
   };
 
   return {
